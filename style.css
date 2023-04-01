@@ -1,50 +1,59 @@
 body {
-  font-family: sans-serif;
-  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
 }
 
-h2 {
-  margin-top: 40px;
+.form {
+  margin: 30px;
 }
 
-label {
-  display: inline-block;
+.form h2 {
   margin-bottom: 10px;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 20px;
+.form label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-button {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
+.form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.form button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0062cc;
+.form button:hover {
+  background-color: #3e8e41;
 }
 
-p {
-  margin-top: 10px;
+.info {
+  margin: 30px;
 }
 
-ul {
-  margin-top: 10px;
-  list-style: none;
-  padding: 0;
+.info h2 {
+  margin-bottom: 10px;
 }
 
-li {
+.info p {
   margin-bottom: 5px;
+}
+
+.info span {
+  font-weight: bold;
 }
