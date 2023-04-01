@@ -395,3 +395,25 @@ async function updateStatistics() {
         updateRankingReward()
     ]);
 }
+
+// Variables
+const connectWalletButtonElement = document.getElementById('connect-wallet-button');
+
+// Event listeners
+connectWalletButtonElement.addEventListener('click', connectWallet);
+
+// Connect wallet function
+async function connectWallet() {
+  if (window.ethereum) {
+    try {
+      // Request account access
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const account = accounts[0];
+      console.log(`Connected to wallet: ${account}`);
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    console.error('Metamask not detected');
+  }
+}
