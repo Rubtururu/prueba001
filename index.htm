@@ -1,33 +1,60 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DividendPool Contract</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>DividendPool Contract</h1>
-    <div class="form">
-      <h2>Deposit</h2>
-      <label for="amount">Amount:</label>
-      <input type="number" id="amount" />
-      <button onclick="deposit()">Deposit</button>
-    </div>
-    <div class="form">
-      <h2>Withdraw</h2>
-      <p>Invested: <span id="invested"></span></p>
-      <p>Withdrawn: <span id="withdrawn"></span></p>
-      <button onclick="withdraw()">Withdraw</button>
-    </div>
-    <div class="info">
-      <h2>Pool Information</h2>
-      <p>Balance: <span id="pool-balance"></span></p>
-      <p>Dividends per share: <span id="dividends-per-share"></span></p>
-      <p>Prize pool: <span id="prize-pool"></span></p>
-      <p>Last prize distribution: <span id="last-prize-timestamp"></span></p>
-      <p>Total shares: <span id="total-shares"></span></p>
-    </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Contract</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Smart Contract</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Deposit</h2>
+            <form>
+                <div class="form-group">
+                    <label for="deposit-amount">Amount</label>
+                    <input type="number" id="deposit-amount" name="deposit-amount" placeholder="Enter the amount to deposit">
+                </div>
+                <button id="deposit-button" type="button">Deposit</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h2>Withdraw</h2>
+            <form>
+                <div class="form-group">
+                    <label for="withdraw-amount">Amount</label>
+                    <input type="number" id="withdraw-amount" name="withdraw-amount" placeholder="Enter the amount to withdraw">
+                </div>
+                <button id="withdraw-button" type="button">Withdraw</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h2>Claim Ranking Reward</h2>
+            <button id="claim-reward-button" type="button">Claim Reward</button>
+        </div>
+
+        <div class="container">
+            <h2>Top Rankings</h2>
+            <div id="rankings"></div>
+        </div>
+
+        <div class="container">
+            <h2>Main Pool Balance</h2>
+            <div id="main-pool-balance"></div>
+        </div>
+
+        <div class="container">
+            <h2>Your Balance</h2>
+            <div id="user-balance"></div>
+        </div>
+    </main>
+
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
