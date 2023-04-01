@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExampleContract Interface</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <h1>ExampleContract Interface</h1>
+    <div>
+      <h2>Deposit</h2>
+      <label for="deposit-amount">Amount:</label>
+      <input type="text" id="deposit-amount" /><br />
+      <button id="deposit-button">Deposit</button>
+      <p id="deposit-message"></p>
+    </div>
+    <div>
+      <h2>Distribute Dividend</h2>
+      <button id="dividend-button">Distribute Dividend</button>
+      <p id="dividend-message"></p>
+    </div>
+    <div>
+      <h2>Buy Lottery Ticket</h2>
+      <label for="ticket-price">Price:</label>
+      <input type="text" id="ticket-price" /><br />
+      <button id="ticket-button">Buy Ticket</button>
+      <p id="ticket-message"></p>
+    </div>
+    <div>
+      <h2>Pick Lottery Winners</h2>
+      <button id="winner-button">Pick Winners</button>
+      <p id="winner-message"></p>
+    </div>
+    <div>
+      <h2>Get User Deposits</h2>
+      <label for="user-address">Address:</label>
+      <input type="text" id="user-address" /><br />
+      <button id="user-button">Get Deposits</button>
+      <p id="user-message"></p>
+      <ul id="deposit-list"></ul>
+    </div>
+    <script src="web3.min.js"></script>
+    <script src="example_contract.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
