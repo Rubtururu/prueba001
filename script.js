@@ -2,7 +2,7 @@
 const web3 = new Web3(window.ethereum);
 
 // Smart contract address and ABI
-const contractAddress = 'CONTRACT_ADDRESS';
+const contractAddress = '0xf8b126D789789dD44d2631D9b11B9cA4d1823B9b';
 const contractABI = CONTRACT_ABI;
 
 // Contract instance
