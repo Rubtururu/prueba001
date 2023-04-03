@@ -115,3 +115,34 @@ const balanceLabel = document.getElementById('balance-label');
     <button type="submit">Deposit</button>
   </form>
   <hr>
+    <div class="section">
+      <h3>Withdraw</h3>
+      <form id="withdraw-form">
+        <div>
+          <label for="withdraw-amount">Amount (in ETH):</label>
+          <input type="number" step="0.01" min="0" id="withdraw-amount" name="withdraw-amount" required>
+        </div>
+        <button type="submit">Withdraw</button>
+      </form>
+      <p id="withdraw-message"></p>
+    </div>
+
+    <div class="section">
+      <h3>Claim Reward</h3>
+      <form id="claim-reward-form">
+        <button type="submit">Claim Reward</button>
+      </form>
+      <p id="claim-reward-message"></p>
+    </div>
+
+    <div class="section">
+      <h3>Contract Info</h3>
+      <p>Total Deposits: <span id="total-deposits"></span> ETH</p>
+      <p>Total Withdrawals: <span id="total-withdrawals"></span> ETH</p>
+      <p>Total Rewards: <span id="total-rewards"></span> ETH</p>
+      <p>Contract Balance: <span id="contract-balance"></span> ETH</p>
+      <p>Reward Rate: <span id="reward-rate"></span> ETH per day</p>
+    </div>
+  </div>
+  </body>
+</html>
