@@ -1,68 +1,135 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matic Treasury</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <header class="header">
+    <div class="header">
+      <div class="container">
         <h1 class="header__title">Matic Treasury</h1>
-      </header>
-      <main class="main">
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="container">
         <div class="row">
           <div class="col">
             <div class="balance-card">
-              <header class="balance-card__header">
-                <h2 class="balance-card__title">Your balance</h2>
-              </header>
-              <div class="balance-card__body">
-                <p class="balance-card__balance" id="user-balance"></p>
-                <p class="balance-card__subtitle" id="user-dividends"></p>
+              <div class="balance-card__header">
+                <h2 class="balance-card__title">Total Deposits</h2>
+                <span class="balance-card__subtitle">Your balance:</span>
+                <span class="balance-card__balance" id="balance">0</span>
+                <span class="balance-card__currency">MATIC</span>
               </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="balance-card">
-              <header class="balance-card__header">
-                <h2 class="balance-card__title">Treasury balance</h2>
-              </header>
               <div class="balance-card__body">
-                <p class="balance-card__balance" id="treasury-balance"></p>
+                <span class="balance-card__subtitle">Available to Withdraw:</span>
+                <span class="balance-card__balance" id="available-to-withdraw">0</span>
+                <span class="balance-card__currency">MATIC</span>
+              </div>
+              <div class="balance-card__footer">
+                <span class="balance-card__subtitle">Dividends:</span>
+                <span class="balance-card__balance" id="dividends">0</span>
+                <span class="balance-card__currency">MATIC</span>
               </div>
             </div>
           </div>
         </div>
-        <form class="form" id="deposit-form">
-          <h2 class="form__title">Deposit Matic</h2>
-          <div class="form__group">
-            <label class="form__label" for="deposit-amount">Amount</label>
-            <div class="form__control-group">
-              <input class="form__control" type="number" min="1" step="1" id="deposit-amount" name="deposit-amount" required>
-              <div class="form__currency">MATIC</div>
-            </div>
-            <div class="form__error-message" id="deposit-amount-error"></div>
+
+        <div class="row">
+          <div class="col">
+            <form class="form">
+              <h2 class="form__title">Deposit</h2>
+              <div class="form__group">
+                <label for="amount" class="form__label"
+                  >Amount (1 MATIC minimum)</label
+                >
+                <div class="form__control-group">
+                  <input
+                    type="number"
+                    id="amount"
+                    class="form__control"
+                    min="1"
+                    step="1"
+                    required
+                  />
+                  <span class="form__currency">MATIC</span>
+                </div>
+              </div>
+              <button class="button button--primary form__button">
+                Deposit
+              </button>
+              <p class="form__error-message" id="deposit-error"></p>
+            </form>
           </div>
-          <button class="button button--primary form__button" type="submit">Deposit</button>
-        </form>
-        <form class="form" id="withdraw-form">
-          <h2 class="form__title">Withdraw Matic</h2>
-          <div class="form__group">
-            <label class="form__label" for="withdraw-amount">Amount</label>
-            <div class="form__control-group">
-              <input class="form__control" type="number" min="1" step="1" id="withdraw-amount" name="withdraw-amount" required>
-              <div class="form__currency">MATIC</div>
-            </div>
-            <div class="form__error-message" id="withdraw-amount-error"></div>
+
+          <div class="col">
+            <form class="form">
+              <h2 class="form__title">Withdraw</h2>
+              <div class="form__group">
+                <label for="amount" class="form__label"
+                  >Amount (in MATIC)</label
+                >
+                <div class="form__control-group">
+                  <input
+                    type="number"
+                    id="amount"
+                    class="form__control"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                  <span class="form__currency">MATIC</span>
+                </div>
+              </div>
+              <button class="button button--primary form__button">
+                Withdraw
+              </button>
+              <p class="form__error-message" id="withdraw-error"></p>
+            </form>
           </div>
-          <button class="button button--primary form__button" type="submit">Withdraw</button>
-        </form>
-        <button class="button button--primary" id="claim-reward-button">Claim Reward</button>
-      </main>
+        </div>
+        <div class="row">
+          <div class="col">
+            <form class="form">
+              <h2 class="form__title">Claim Dividends</h2>
+              <div class="form__group">
+                <span class="form__subtitle"
+                  >Your dividends available to claim:</span
+                >
+                <span class="form__control" id="dividends-to-claim">0</span>
+                <span class="form__currency">MATIC</span>
+              </div>
+              <button class="button button--primary form__button">
+                Claim Dividends
+              </button>
+            </form>
+          </div>
+
+          <div class="col">
+            <h2 class="leaderboard__title">Leaderboard</h2>
+            <table class="leaderboard__table">
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Balance</th>
+                  <th>Dividends</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-body">
+                <tr>
+                  <td colspan="3">No users to display</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.5.2/web3.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
