@@ -1,210 +1,39 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  font-size: 32px;
-  font-weight: bold;
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 20px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+form {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-th {
-  background-color: #f1f1f1;
-  text-align: left;
-  padding: 10px;
-}
-
-td {
-  padding: 10px;
-}
-
-tr:nth-child(even) {
-  background-color: #f1f1f1;
+label {
+  margin-right: 10px;
 }
 
 button {
-  display: inline-block;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin-top: 10px;
+}
+
+#treasuryBalance,
+#userBalance {
   font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 
 button:hover {
-  background-color: #0062cc;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
 }
 
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
-
-input[type="number"]:focus {
-  border: 1px solid #007bff;
-}
-
-.label {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.balance {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.rewards {
-  margin-bottom: 20px;
-}
-
-.reward {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.reward-amount {
-  font-weight: bold;
-  color: green;
-}
-
-.top-rankings {
-  margin-bottom: 20px;
-}
-
-.ranking {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.ranking-address {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.ranking-balance {
-  font-weight: bold;
-  color: green;
-}
-
-.footer {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 20px;
-  color: #999;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.8);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.8);
-  }
-}
-
-/* Imágenes */
-.logo {
-  width: 200px;
-  margin-bottom: 20px;
-}
-
-/* Estilos de estadísticas */
-.stats-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-.stats-container > div {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 30%;
-  text-align: center;
-  animation: slideInLeft 1s;
-  animation-fill-mode: forwards;
-  animation-delay: 0.2s;
-}
-
-.stats-container > div:nth-child(2) {
-  animation-delay: 0.4s;
-}
-
-.stats-container > div:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-.stats-container > div > h3 {
-  margin: 0;
-  margin-bottom: 10px;
-  font-size: 32px;
-  color: #4056a1;
-  animation: pulse 1s infinite;
-}
-
-.stats-container > div > p {
-  margin: 0;
-  font-size: 18px;
-  color: #707070;
+button:disabled {
+  cursor: default;
+  background-color: #cccccc;
+  color: #666666;
 }
