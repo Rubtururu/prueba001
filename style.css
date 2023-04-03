@@ -1,12 +1,4 @@
-
-
-:root {
-  --primary-color: #003ab8;
-  --secondary-color: #0057ff;
-  --light-color: #f4f4f4;
-  --dark-color: #222;
-  --danger-color: #ff0042;
-}
+/* Estilos generales */
 
 * {
   margin: 0;
@@ -15,238 +7,145 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background-color: var(--light-color);
+  background-color: #f7f7f7;
+  font-family: Arial, sans-serif;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 10px;
-  color: var(--dark-color);
-}
-
 h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 500;
-}
-
-h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-p {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  line-height: 1.5;
-  color: var(--dark-color);
-}
-
-a {
-  text-decoration: none;
-  color: var(--primary-color);
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: var(--secondary-color);
-}
-
-button {
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--secondary-color);
-  color: #fff;
-}
-.form {
-  margin-top: 30px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.form__title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.form__group {
   margin-bottom: 20px;
 }
 
-.form__label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--dark-color);
+hr {
+  border: 1px solid #ddd;
+  margin: 20px 0;
 }
 
-.form__input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 1.2rem;
-  color: var(--dark-color);
-}
+/* Estilos para la sección de estadísticas */
 
-.form__currency {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--dark-color);
-  margin-left: 5px;
-}
-
-.form__button {
-  background-color: var(--primary-color);
-  color: #fff;
-}
-
-.form__button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-/* Rewards section */
-.rewards {
-  margin-top: 30px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.rewards__title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.rewards__info {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.rewards__balance {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: var(--dark-color);
-}
-
-.rewards__claim {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 5px;
-  color: var(--dark-color);
-}
-
-.rewards__button {
-  background-color: var(--primary-color);
-  color: #fff;
-}
-
-.rewards__button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-/* Footer section */
-.footer {
-  margin-top: 30px;
-  background-color: var(--dark-color);
-  color: #fff;
-  padding: 20px;
+.stats {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin: 20px 0;
 }
 
-.footer__text {
-  font-size: 0.8rem;
-}
-
-.footer__links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer__link {
-  margin-left: 10px;
-}
-
-.footer__link a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.8rem;
-}
-
-@media screen and (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
-}
-/* Success and error messages */
-.success-message,
-.error-message {
-  padding: 10px;
-  margin: 10px 0;
+.stats__item {
+  flex-basis: calc(33.3333% - 20px);
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  font-size: 0.9rem;
-  font-weight: bold;
 }
 
-.success-message {
-  color: green;
-  background-color: lightgreen;
+.stats__item--total-deposits {
+  border-top: 5px solid #2185d0;
 }
 
-.error-message {
-  color: red;
-  background-color: lightcoral;
+.stats__item--total-withdrawals {
+  border-top: 5px solid #db2828;
 }
 
-/* Loader animation */
-.loader {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  border-top-color: #3498db;
-  animation: spin 0.8s ease-in-out infinite;
-  margin-right: 5px;
+.stats__item--total-rewards {
+  border-top: 5px solid #21ba45;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.stats__item h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.stats__item p {
+  font-size: 16px;
+}
+
+/* Estilos para los formularios */
+
+form {
+  margin: 20px 0;
+}
+
+form input[type="number"] {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+form input[type="submit"] {
+  background-color: #2185d0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #1062a7;
+}
+
+/* Estilos para las tablas */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+table th {
+  background-color: #eee;
+}
+
+table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* Estilos para los botones */
+
+.button {
+  background-color: #2185d0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button--primary {
+  background-color: #2185d0;
+}
+
+.button--danger {
+  background-color: #db2828;
+}
+
+.button--success {
+  background-color: #21ba45;
+}
+
+.button:hover {
+  background-color: #1062a7;
+}
+
+.button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
