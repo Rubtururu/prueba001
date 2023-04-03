@@ -6,36 +6,69 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Matic Treasury</h1>
-      <div class="balance-container">
-        <div class="balance">
-          <h3>Tesoro:</h3>
-          <p id="treasuryBalance">...</p>
-        </div>
-        <div class="balance">
-          <h3>Tu saldo:</h3>
-          <p id="userBalance">...</p>
-        </div>
-        <button id="claimRewardButton">Reclamar recompensa</button>
+    <header class="header">
+      <div class="container">
+        <h1 class="header__title">Matic Treasury</h1>
       </div>
-      <form id="depositForm">
-        <h2>Depositar</h2>
-        <div class="form-group">
-          <label for="depositAmount">Cantidad:</label>
-          <input type="number" step="any" name="depositAmount" required />
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="balance-card">
+              <div class="balance-card__header">
+                <h2 class="balance-card__title">Tesoro</h2>
+              </div>
+              <div class="balance-card__body">
+                <p class="balance-card__balance" id="treasuryBalance">...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="balance-card">
+              <div class="balance-card__header">
+                <h2 class="balance-card__title">Tu saldo</h2>
+              </div>
+              <div class="balance-card__body">
+                <p class="balance-card__balance" id="userBalance">...</p>
+                <button class="button button--primary" id="claimRewardButton">Reclamar recompensa</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="submit">Depositar</button>
-      </form>
-      <form id="withdrawForm">
-        <h2>Retirar</h2>
-        <div class="form-group">
-          <label for="withdrawAmount">Cantidad:</label>
-          <input type="number" step="any" name="withdrawAmount" required />
-        </div>
-        <button type="submit">Retirar</button>
-      </form>
-    </div>
+
+        <form class="form" id="depositForm">
+          <h2 class="form__title">Depositar</h2>
+          <div class="form__group">
+            <label class="form__label" for="depositAmount">Cantidad</label>
+            <div class="form__control-group">
+              <input class="form__control" type="number" step="any" name="depositAmount" required />
+              <span class="form__currency">MATIC</span>
+            </div>
+          </div>
+          <button class="button button--primary" type="submit">Depositar</button>
+        </form>
+
+        <form class="form" id="withdrawForm">
+          <h2 class="form__title">Retirar</h2>
+          <div class="form__group">
+            <label class="form__label" for="withdrawAmount">Cantidad</label>
+            <div class="form__control-group">
+              <input class="form__control" type="number" step="any" name="withdrawAmount" required />
+              <span class="form__currency">MATIC</span>
+            </div>
+          </div>
+          <button class="button button--primary" type="submit">Retirar</button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__text">© 2023 Matic Treasury</p>
+      </div>
+    </footer>
 
     <script src="./app.js"></script>
   </body>
