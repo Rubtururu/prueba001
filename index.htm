@@ -70,36 +70,7 @@
 					</div>
 				</div>
 		
-const balanceLabel = document.getElementById('balance-label');
-			const depositsLabel = document.getElementById('deposits-label');
-			const rewardsLabel = document.getElementById('rewards-label');
-			const totalDepositsLabel = document.getElementById('total-deposits-label');
-			const totalWithdrawalsLabel = document.getElementById('total-withdrawals-label');
-			const totalRewardsLabel = document.getElementById('total-rewards-label');
 
-			const updateStats = () => {
-				contractInstance.methods.viewContractBalance().call().then((balance) => {
-					balanceLabel.innerHTML = web3.utils.fromWei(balance, 'ether');
-				});
-				contractInstance.methods.viewDeposits(account).call().then((deposits) => {
-					depositsLabel.innerHTML = web3.utils.fromWei(deposits, 'ether');
-				});
-				contractInstance.methods.viewRewards(account).call().then((rewards) => {
-					rewardsLabel.innerHTML = web3.utils.fromWei(rewards, 'ether');
-				});
-				contractInstance.methods.totalDeposits().call().then((totalDeposits) => {
-					totalDepositsLabel.innerHTML = web3.utils.fromWei(totalDeposits, 'ether');
-				});
-				contractInstance.methods.totalWithdrawals().call().then((totalWithdrawals) => {
-					totalWithdrawalsLabel.innerHTML = web3.utils.fromWei(totalWithdrawals, 'ether');
-				});
-				contractInstance.methods.totalRewards().call().then((totalRewards) => {
-					totalRewardsLabel.innerHTML = web3.utils.fromWei(totalRewards, 'ether');
-				});
-			};
-
-			updateStats();
-<div class="container">
   <h1>Matic Treasury</h1>
   <p>Total Deposits: <span id="total-deposits"></span></p>
   <p>Total Withdrawals: <span id="total-withdrawals"></span></p>
