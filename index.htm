@@ -1,79 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Contract</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Smart Contract</h1>
-    </header>
-<button id="connect-wallet-button">Connect Wallet</button>
-    <main>
-        <div class="container">
-            <h2>Deposit</h2>
-            <form>
-                <div class="form-group">
-                    <label for="deposit-amount">Amount</label>
-                    <input type="number" id="deposit-amount" name="deposit-amount" placeholder="Enter the amount to deposit">
-                </div>
-                <button id="deposit-button" type="button">Deposit</button>
-            </form>
-        </div>
-
-        <div class="container">
-            <h2>Withdraw</h2>
-            <form>
-                <div class="form-group">
-                    <label for="withdraw-amount">Amount</label>
-                    <input type="number" id="withdraw-amount" name="withdraw-amount" placeholder="Enter the amount to withdraw">
-                </div>
-                <button id="withdraw-button" type="button">Withdraw</button>
-            </form>
-        </div>
-
-        <div class="container">
-            <h2>Claim Ranking Reward</h2>
-            <button id="claim-reward-button" type="button">Claim Reward</button>
-        </div>
-
-        <div class="container">
-            <h2>Top Rankings</h2>
-            <div id="rankings"></div>
-        </div>
-
-        <div class="container">
-            <h2>Main Pool Balance</h2>
-            <div id="main-pool-balance"></div>
-        </div>
-
-        <div class="container">
-            <h2>Your Balance</h2>
-            <div id="user-balance"></div>
-        </div>
-    </main>
-<h2>Statistics</h2>
-<div class="statistics-container">
-    <div class="statistic">
-        <div class="statistic-label">Total pool balance:</div>
-        <div id="total-pool-balance" class="statistic-value"></div>
-    </div>
-    <div class="statistic">
-        <div class="statistic-label">Your balance:</div>
-        <div id="user-balance" class="statistic-value"></div>
-    </div>
-    <div class="statistic">
-        <div class="statistic-label">Your ranking:</div>
-        <div id="user-ranking" class="statistic-value"></div>
-    </div>
-    <div class="statistic">
-        <div class="statistic-label">Ranking reward:</div>
-        <div id="ranking-reward" class="statistic-value"></div>
-    </div>
-</div>
-
-    <script src="script.js"></script>
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MaticTreasury</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+  </head>
+  <body>
+    <h1>MaticTreasury</h1>
+    <p>Current Treasury Balance: <span id="treasuryBalance"></span> MATIC</p>
+    <p>Current User Balance: <span id="userBalance"></span> MATIC</p>
+    <form id="depositForm">
+      <h2>Deposit</h2>
+      <label for="depositAmount">Amount:</label>
+      <input type="number" id="depositAmount" name="depositAmount" required min="1" max="100000" step="1" />
+      <button type="submit">Deposit</button>
+    </form>
+    <form id="withdrawForm">
+      <h2>Withdraw</h2>
+      <label for="withdrawAmount">Amount:</label>
+      <input type="number" id="withdrawAmount" name="withdrawAmount" required min="1" step="1" />
+      <button type="submit">Withdraw</button>
+    </form>
+    <button id="claimRewardButton">Claim Reward</button>
+    <script src="./app.js"></script>
+  </body>
 </html>
