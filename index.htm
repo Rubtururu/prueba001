@@ -1,118 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Mi DApp con MetaMask</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <h1>Mi DApp con MetaMask</h1>
-    <p>Conecta tu billetera de MetaMask para usar esta DApp.</p>
-    <button id="connect-metamask-button" class="button button--primary">Conectar con MetaMask</button>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Matic Treasury</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#">Matic Treasury</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNav">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item">
+	        <a class="nav-link" href="#stats">Stats</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#deposit">Deposit</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#withdraw">Withdraw</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#claim-reward">Claim Reward</a>
+	      </li>
+	    </ul>
+	    <ul class="navbar-nav">
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="#" id="account-address"></a>
+	    	</li>
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="#" id="account-balance"></a>
+	    	</li>
+	    </ul>
+	  </div>
+	</nav>
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<h4>Stats</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="total-deposits">Total Deposits</label>
+							<input type="text" id="total-deposits" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label for="total-withdrawals">Total Withdrawals</label>
+							<input type="text" id="total-withdrawals" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label for="total-rewards">Total Rewards</label>
+							<input type="text" id="total-rewards" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label for="reward-rate">Reward Rate</label>
+							<input type="text" id="reward-rate" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label for="reward-per-deposit">Reward per Deposit</label>
+							<input type="text" id="reward-per-deposit" class="form-control" readonly>
+						</div>
+					</div>
+				</div>
+		
+const balanceLabel = document.getElementById('balance-label');
+			const depositsLabel = document.getElementById('deposits-label');
+			const rewardsLabel = document.getElementById('rewards-label');
+			const totalDepositsLabel = document.getElementById('total-deposits-label');
+			const totalWithdrawalsLabel = document.getElementById('total-withdrawals-label');
+			const totalRewardsLabel = document.getElementById('total-rewards-label');
 
-    <div class="container">
-      <h2>Balance</h2>
-      <div class="balance">
-        <div class="balance__item">
-          <div class="balance__label">Total depositado:</div>
-          <div class="balance__value" id="total-depositado">0</div>
-          <div class="balance__currency">MATIC</div>
-        </div>
-        <div class="balance__item">
-          <div class="balance__label">Dividendos acumulados:</div>
-          <div class="balance__value" id="dividendos-acumulados">0</div>
-          <div class="balance__currency">MATIC</div>
-        </div>
-        <div class="balance__item">
-          <div class="balance__label">Dividendos disponibles:</div>
-          <div class="balance__value" id="dividendos-disponibles">0</div>
-          <div class="balance__currency">MATIC</div>
-        </div>
-      </div>
-    </div>
+			const updateStats = () => {
+				contractInstance.methods.viewContractBalance().call().then((balance) => {
+					balanceLabel.innerHTML = web3.utils.fromWei(balance, 'ether');
+				});
+				contractInstance.methods.viewDeposits(account).call().then((deposits) => {
+					depositsLabel.innerHTML = web3.utils.fromWei(deposits, 'ether');
+				});
+				contractInstance.methods.viewRewards(account).call().then((rewards) => {
+					rewardsLabel.innerHTML = web3.utils.fromWei(rewards, 'ether');
+				});
+				contractInstance.methods.totalDeposits().call().then((totalDeposits) => {
+					totalDepositsLabel.innerHTML = web3.utils.fromWei(totalDeposits, 'ether');
+				});
+				contractInstance.methods.totalWithdrawals().call().then((totalWithdrawals) => {
+					totalWithdrawalsLabel.innerHTML = web3.utils.fromWei(totalWithdrawals, 'ether');
+				});
+				contractInstance.methods.totalRewards().call().then((totalRewards) => {
+					totalRewardsLabel.innerHTML = web3.utils.fromWei(totalRewards, 'ether');
+				});
+			};
 
-    <div class="container">
-      <h2>Depositar</h2>
-      <form class="form" id="deposit-form">
-        <div class="form__group">
-          <label class="form__label" for="deposit-amount">Cantidad a depositar:</label>
-          <div class="form__input-group">
-            <input class="form__input" type="number" id="deposit-amount" min="1" max="100000" step="1" required>
-            <span class="form__currency">MATIC</span>
-          </div>
-        </div>
-        <button class="button button--primary form__button">Depositar</button>
-      </form>
-    </div>
-
-    <div class="container">
-      <h2>Retirar</h2>
-      <form class="form" id="withdraw-form">
-        <div class="form__group">
-          <label class="form__label" for="withdraw-amount">Cantidad a retirar:</label>
-          <div class="form__input-group">
-            <input class="form__input" type="number" id="withdraw-amount" min="1" max="100000" step="1" required>
-            <span class="form__currency">MATIC</span>
-          </div>
-        </div>
-        <button class="button button--primary form__button">Retirar</button>
-      </form>
-    </div>
-    <div class="container">
-      <h2>Reclamar dividendos</h2>
-      <form class="form" id="claim-form">
-        <button class="button button--primary form__button">Reclamar</button>
-      </form>
-    </div>
-
-    <div class="container">
-      <h2>Información del contrato</h2>
-      <div class="info">
-        <div class="info__item">
-          <div class="info__label">Balance de la tesorería:</div>
-          <div class="info__value" id="balance-tesoreria">0</div>
-          <div class="info__currency">MATIC</div>
-        </div>
-        <div class="info__item">
-          <div class="info__label">Balance del creador:</div>
-          <div class="info__value" id="balance-creador">0</div>
-          <div class="info__currency">MATIC</div>
-        </div>
-        <div class="info__item">
-          <div class="info__label">Depósito mínimo:</div>
-          <div class="info__value" id="deposito-minimo">1</div>
-          <div class="info__currency">MATIC</div>
-        </div>
-        <div class="info__item">
-          <div class="info__label">Depósito máximo:</div>
-          <div class="info__value" id="deposito-maximo">100000</div>
-          <div class="info__currency">MATIC</div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <h2>Modificar los límites de depósito</h2>
-      <form class="form" id="limits-form">
-        <div class="form__item">
-          <label for="min-deposit-input" class="form__label">Depósito mínimo:</label>
-          <div class="form__field">
-            <input type="number" id="min-deposit-input" class="form__input" step="1" min="1" max="999999" required>
-            <span class="form__currency">MATIC</span>
-          </div>
-        </div>
-        <div class="form__item">
-          <label for="max-deposit-input" class="form__label">Depósito máximo:</label>
-          <div class="form__field">
-            <input type="number" id="max-deposit-input" class="form__input" step="1" min="1" max="999999" required>
-            <span class="form__currency">MATIC</span>
-          </div>
-        </div>
-        <button class="button button--primary form__button">Modificar</button>
-      </form>
-    </div>
-  </body>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.4.0/web3.min.js" integrity="sha512-7DtrS2ikBLj9tTc3qTlGt4uCr4EhJIVUV0+YvyGVAV7otuzikSjJt9cLqT3TtTJ16e0PR+Bb7CQY20+HQ1gC0g==" crossorigin="anonymous"></script>
-  <script src="app.js"></script>
-
-</html>
+			updateStats();
+<div class="container">
+  <h1>Matic Treasury</h1>
+  <p>Total Deposits: <span id="total-deposits"></span></p>
+  <p>Total Withdrawals: <span id="total-withdrawals"></span></p>
+  <p>Total Rewards: <span id="total-rewards"></span></p>
+  <p>Reward Rate: <span id="reward-rate"></span></p>
+  <p>Reward Per Deposit: <span id="reward-per-deposit"></span></p>
+  <p>Contract Balance: <span id="contract-balance"></span></p>
+  <hr>
+  <h2>Deposit</h2>
+  <form id="deposit-form">
+    <label for="deposit-amount">Amount:</label>
+    <input type="number" id="deposit-amount" name="deposit-amount" min="0">
+    <button type="submit">Deposit</button>
+  </form>
+  <hr>
