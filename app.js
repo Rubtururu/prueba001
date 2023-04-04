@@ -14,21 +14,20 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 // Obtener la cuenta del usuario actual
 
 async function getCurrentAccount() {
-  const accounts = await ethereum.request({ method: 'eth_accounts' });
-  return accounts.length !== 0 ? accounts[0] : null;
+const accounts = await ethereum.request({ method: 'eth_accounts' });
+return accounts.length !== 0 ? accounts[0] : null;
 }
 
 // Manejo de errores de la solicitud de la cuenta del usuario actual
 
 async function handleAccountError() {
-  const currentAccount = await getCurrentAccount();
-  if (!currentAccount) {
-    alert('Por favor conecta tu cuenta de Metamask.');
-    return false;
-  }
-  return true;
+const currentAccount = await getCurrentAccount();
+if (!currentAccount) {
+alert('Por favor conecta tu cuenta de Metamask.');
+return false;
 }
-
+return true;
+}
 // Obtener el balance de Matic de una cuenta
 
 async function getMaticBalance(account) {
@@ -120,96 +119,143 @@ async function initializePage() {
     updateBalance();
   }
 }
-
 initializePage();
 
-// Event listeners para los botones de depósito, retiro y reclamación de dividendos
+// Event listener para el botón de conexión de Metamask
 
-document.getElementById('deposit-form').addEventListener('submit', (event) => {
-  event.preventDefault();
-  const amount = event.target[0].value;
-  depositMatic(amount);
-});
-
-document.getElementById('withdraw-form').addEventListener('submit', (event) => {
-  event.preventDefault();
-  const amount = event.target[0].value;
-  withdrawMatic(amount);
-});
-
-document.getElementById('claim-button').addEventListener('click', () => {
-  claimDividends();
-}); 
-// Función para verificar la red de Ethereum
-
-async function checkNetwork() {
-  const chainId = await ethereum.request({ method: 'eth_chainId' });
-  switch (chainId) {
-    case '0x1':
-      return 'mainnet';
-    case '0x3':
-      return 'ropsten';
-    case '0x4':
-      return 'rinkeby';
-    case '0x5':
-      return 'goerli';
-    case '0x2a':
-      return 'kovan';
-    default:
-      return 'unknown';
-  }
+document.getElementById('connect-button').addEventListener('click', async () => {
+if (await checkMetamaskInstalled()) {
+try {
+await ethereum.request({ method: 'eth_requestAccounts' });
+location.reload();
+} catch (error) {
+alert('La conexión con Metamask ha sido rechazada.');
 }
+} else {
+alert('Por favor instala Metamask para conectarte a la red de Ethereum.');
+}
+});
+
+// Función para formatear el número con decimales
+
+function formatNumber(number) {
+return new Intl.NumberFormat('es-ES', { maximumFractionDigits: 4 }).format(number);
+}
+
+// Event listener para actualizar el balance del usuario
+
+ethereum.on('accountsChanged', async () => {
+const currentAccount = await getCurrentAccount();
+if (currentAccount) {
+const network = await checkNetwork();
+const version = await checkMetamaskVersion();
+document.getElementById('network').textContent = network;
+document.getElementById('metamask-version').textContent = version;
+updateBalance();
+}
+});
+
+// Event listener para el botón de desconexión de Metamask
+
+document.getElementById('disconnect-button').addEventListener('click', async () => {
+await ethereum.request({ method: 'eth_logout' });
+location.reload();
+});
+
+// Event listener para el botón de cambiar la red de Ethereum
+
+document.getElementById('change-network-button').addEventListener('click', async () => {
+await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x1' }] });
+});
+
+// Event listener para el botón de copiar la dirección del contrato
+
+document.getElementById('copy-contract-address-button').addEventListener('click', () => {
+navigator.clipboard.writeText(contractAddress);
+alert('La dirección del contrato se ha copiado correctamente.');
+});
+
+// Event listener para el botón de copiar la dirección de la pool del tesoro
+
+document.getElementById('copy-treasury-pool-address-button').addEventListener('click', async () => {
+const treasuryPoolAddress = await contract.methods.treasuryPool().call();
+navigator.clipboard.writeText(treasuryPoolAddress);
+alert('La dirección de la pool del tesoro se ha copiado correctamente.');
+});
+// Función para mostrar el botón de cambio de red de Ethereum si la red actual no es la correcta
+
+async function showChangeNetworkButton() {
+const network = await checkNetwork();
+const currentAccount = await getCurrentAccount();
+if (currentAccount && network !== 'mainnet') {
+document.getElementById('change-network-button').style.display = 'inline-block';
+}
+}
+
+showChangeNetworkButton();
+
+// Función para mostrar el botón de cambio de red de Ethereum si la red actual no es la correcta
+
+async function showChangeNetworkButton() {
+const network = await checkNetwork();
+const currentAccount = await getCurrentAccount();
+if (currentAccount && network !== 'mainnet') {
+document.getElementById('change-network-button').style.display = 'inline-block';
+}
+}
+
+showChangeNetworkButton();
 
 // Event listener para el cambio de red de Ethereum
 
 ethereum.on('chainChanged', () => {
-  location.reload();
+location.reload();
 });
 
 // Event listener para la desconexión de Metamask
 
 ethereum.on('disconnect', () => {
-  location.reload();
+location.reload();
 });
 
 // Event listener para la conexión de Metamask
 
 ethereum.on('accountsChanged', (accounts) => {
-  location.reload();
+location.reload();
 });
 
 // Función para verificar la versión de Metamask
 
 async function checkMetamaskVersion() {
-  const version = await ethereum.request({ method: 'eth_version' });
-  return version;
+const version = await ethereum.request({ method: 'eth_version' });
+return version;
 }
 
 // Función para verificar si Metamask está instalado
 
 async function checkMetamaskInstalled() {
-  if (window.ethereum) {
-    try {
-      await ethereum.request({ method: 'eth_accounts' });
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-  return false;
+if (window.ethereum) {
+try {
+await ethereum.request({ method: 'eth_accounts' });
+return true;
+} catch (error) {
+return false;
+}
+}
+return false;
 }
 
 // Inicialización de la página
 
 async function initializePage() {
-  const currentAccount = await getCurrentAccount();
-  if (currentAccount) {
-    const network = await checkNetwork();
-    const version = await checkMetamaskVersion();
-    document.getElementById('network').textContent = network;
-    document.getElementById('metamask-version').textContent = version;
-    updateBalance();
-  }
+const currentAccount = await getCurrentAccount();
+if (currentAccount) {
+const network = await checkNetwork();
+const version = await checkMetamaskVersion();
+document.getElementById('network').textContent = network;
+document.getElementById('metamask-version').textContent = version;
+updateBalance();
+}
 }
 
 initializePage();
@@ -217,71 +263,76 @@ initializePage();
 // Event listener para el botón de conexión de Metamask
 
 document.getElementById('connect-button').addEventListener('click', async () => {
-  if (await checkMetamaskInstalled()) {
-    try {
-      await ethereum.request({ method: 'eth_requestAccounts' });
-      location.reload();
-    } catch (error) {
-      alert('La conexión con Metamask ha sido rechazada.');
-    }
-  } else {
-    alert('Por favor instala Metamask para conectarte a la red de Ethereum.');
-  }
-}); 
-// Función para formatear el número con decimales
-
-function formatNumber(number) {
-  return new Intl.NumberFormat('es-ES', { maximumFractionDigits: 4 }).format(number);
+if (await checkMetamaskInstalled()) {
+try {
+await ethereum.request({ method: 'eth_requestAccounts' });
+location.reload();
+} catch (error) {
+alert('La conexión con Metamask ha sido rechazada.');
 }
-
-// Event listener para actualizar el balance del usuario
-
-ethereum.on('accountsChanged', async () => {
-  const currentAccount = await getCurrentAccount();
-  if (currentAccount) {
-    const network = await checkNetwork();
-    const version = await checkMetamaskVersion();
-    document.getElementById('network').textContent = network;
-    document.getElementById('metamask-version').textContent = version;
-    updateBalance();
-  }
+} else {
+alert('Por favor instala Metamask para conectarte a la red de Ethereum.');
+}
 });
-
 // Event listener para el botón de desconexión de Metamask
 
 document.getElementById('disconnect-button').addEventListener('click', async () => {
-  await ethereum.request({ method: 'eth_logout' });
-  location.reload();
+await ethereum.request({ method: 'eth_logout' });
+location.reload();
 });
 
 // Event listener para el botón de cambiar la red de Ethereum
 
 document.getElementById('change-network-button').addEventListener('click', async () => {
-  await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x1' }] });
+await ethereum.request({ method: 'wallet_addEthereumChain', params: [{ chainId: '0x1', rpcUrls: ['https://mainnet.infura.io/v3/ab42494e0cc641ac9f3613d3c2f75a23'] }] });
 });
 
 // Event listener para el botón de copiar la dirección del contrato
 
 document.getElementById('copy-contract-address-button').addEventListener('click', () => {
-  navigator.clipboard.writeText(contractAddress);
-  alert('La dirección del contrato se ha copiado correctamente.');
+navigator.clipboard.writeText(contractAddress);
+alert('La dirección del contrato se ha copiado correctamente.');
 });
 
 // Event listener para el botón de copiar la dirección de la pool del tesoro
 
 document.getElementById('copy-treasury-pool-address-button').addEventListener('click', async () => {
-  const treasuryPoolAddress = await contract.methods.treasuryPool().call();
-  navigator.clipboard.writeText(treasuryPoolAddress);
-  alert('La dirección de la pool del tesoro se ha copiado correctamente.');
-}); 
-// Función para mostrar el botón de cambio de red de Ethereum si la red actual no es la correcta
+const treasuryPoolAddress = await contract.methods.treasuryPool().call();
+navigator.clipboard.writeText(treasuryPoolAddress);
+alert('La dirección de la pool del tesoro se ha copiado correctamente.');
+});
 
-async function showChangeNetworkButton() {
-  const network = await checkNetwork();
-  const currentAccount = await getCurrentAccount();
-  if (currentAccount && network !== 'mainnet') {
-    document.getElementById('change-network-button').style.display = 'inline-block';
-  }
+// Función para actualizar el balance del usuario
+
+async function updateBalance() {
+const currentAccount = await getCurrentAccount();
+const maticBalance = await getMaticBalance(currentAccount);
+const contractBalance = await getContractBalance();
+const totalDividends = await getTotalDividends();
+const userDividends = await getUserDividends(currentAccount);
+document.getElementById('matic-balance').textContent = formatNumber(maticBalance);
+document.getElementById('contract-balance').textContent = formatNumber(contractBalance);
+document.getElementById('total-dividends').textContent = formatNumber(totalDividends);
+document.getElementById('user-dividends').textContent = formatNumber(userDividends);
 }
 
-showChangeNetworkButton(); 
+// Función para verificar la versión de Metamask
+
+async function checkMetamaskVersion() {
+const version = await ethereum.request({ method: 'eth_version' });
+return version;
+}
+
+// Función para verificar si Metamask está instalado
+
+async function checkMetamaskInstalled() {
+if (window.ethereum) {
+try {
+await ethereum.request({ method: 'eth_accounts' });
+return true;
+} catch (error) {
+return false;
+}
+}
+return false;
+}
