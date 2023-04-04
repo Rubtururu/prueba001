@@ -6,8 +6,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="background"></div>
     <div class="container">
       <h1 class="title">MaticPool Interface</h1>
+      <div class="box">
+        <h2 class="subtitle">Connect with MetaMask</h2>
+        <button id="connect-button" class="button">Connect</button>
+      </div>
       <div class="box">
         <h2 class="subtitle">Deposit Matic</h2>
         <form id="deposit-form" class="form">
@@ -33,37 +38,39 @@
         <button id="claim-button" class="button">Claim</button>
         <div id="message"></div>
       </div>
-      <div class="box">
-        <h2 class="subtitle">Account Balance</h2>
-        <p id="balance"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Last Dividend Claim</h2>
-        <p id="last-dividend-claim"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Total Matic in Pool</h2>
-        <p id="total-matic"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Treasury Pool</h2>
-        <p id="treasury-pool"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Dividend Payout Amount</h2>
-        <p id="payout-amount"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Tax Rate</h2>
-        <p id="tax-rate"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Last Dividend Payout</h2>
-        <p id="last-dividend-payout"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Total Dividends Paid</h2>
-        <p id="total-dividends"></p>
+      <div class="stats">
+        <div class="stats-box">
+          <h2 class="subtitle">Account Balance</h2>
+          <p id="balance"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Last Dividend Claim</h2>
+          <p id="last-dividend-claim"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Total Matic in Pool</h2>
+          <p id="total-matic"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Treasury Pool</h2>
+          <p id="treasury-pool"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Dividend Payout Amount</h2>
+          <p id="payout-amount"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Tax Rate</h2>
+          <p id="tax-rate"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Last Dividend Payout</h2>
+          <p id="last-dividend-payout"></p>
+        </div>
+        <div class="stats-box">
+          <h2 class="subtitle">Total Dividends Paid</h2>
+          <p id="total-dividends"></p>
+        </div>
       </div>
     </div>
     <script src="app.js"></script>
