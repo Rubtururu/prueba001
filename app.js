@@ -1,6 +1,6 @@
 // Contrato inteligente
 
-const contractAddress = '0x1234567890123456789012345678901234567890'; // Dirección del contrato
+const contractAddress = '0x6AfaDfeFCA9adb30595713Fb6BF657C711d3e24d'; // Dirección del contrato
 const contractABI = []; // ABI del contrato
 
 // Web3.js inicialización
