@@ -1,119 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Matic Treasury</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  <a class="navbar-brand" href="#">Matic Treasury</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link" href="#stats">Stats</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#deposit">Deposit</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#withdraw">Withdraw</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#claim-reward">Claim Reward</a>
-	      </li>
-	    </ul>
-	    <ul class="navbar-nav">
-	    	<li class="nav-item">
-	    		<a class="nav-link" href="#" id="account-address"></a>
-	    	</li>
-	    	<li class="nav-item">
-	    		<a class="nav-link" href="#" id="account-balance"></a>
-	    	</li>
-	    </ul>
-	  </div>
-	</nav>
-	<div class="container mt-4">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header">
-						<h4>Stats</h4>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="total-deposits">Total Deposits</label>
-							<input type="text" id="total-deposits" class="form-control" readonly>
-						</div>
-						<div class="form-group">
-							<label for="total-withdrawals">Total Withdrawals</label>
-							<input type="text" id="total-withdrawals" class="form-control" readonly>
-						</div>
-						<div class="form-group">
-							<label for="total-rewards">Total Rewards</label>
-							<input type="text" id="total-rewards" class="form-control" readonly>
-						</div>
-						<div class="form-group">
-							<label for="reward-rate">Reward Rate</label>
-							<input type="text" id="reward-rate" class="form-control" readonly>
-						</div>
-						<div class="form-group">
-							<label for="reward-per-deposit">Reward per Deposit</label>
-							<input type="text" id="reward-per-deposit" class="form-control" readonly>
-						</div>
-					</div>
-				</div>
-		
-
-  <h1>Matic Treasury</h1>
-  <p>Total Deposits: <span id="total-deposits"></span></p>
-  <p>Total Withdrawals: <span id="total-withdrawals"></span></p>
-  <p>Total Rewards: <span id="total-rewards"></span></p>
-  <p>Reward Rate: <span id="reward-rate"></span></p>
-  <p>Reward Per Deposit: <span id="reward-per-deposit"></span></p>
-  <p>Contract Balance: <span id="contract-balance"></span></p>
-  <hr>
-  <h2>Deposit</h2>
-  <form id="deposit-form">
-    <label for="deposit-amount">Amount:</label>
-    <input type="number" id="deposit-amount" name="deposit-amount" min="0">
-    <button type="submit">Deposit</button>
-  </form>
-  <hr>
-    <div class="section">
-      <h3>Withdraw</h3>
-      <form id="withdraw-form">
-        <div>
-          <label for="withdraw-amount">Amount (in ETH):</label>
-          <input type="number" step="0.01" min="0" id="withdraw-amount" name="withdraw-amount" required>
-        </div>
-        <button type="submit">Withdraw</button>
-      </form>
-      <p id="withdraw-message"></p>
-    </div>
-
-    <div class="section">
-      <h3>Claim Reward</h3>
-      <form id="claim-reward-form">
-        <button type="submit">Claim Reward</button>
-      </form>
-      <p id="claim-reward-message"></p>
-    </div>
-
-    <div class="section">
-      <h3>Contract Info</h3>
-      <p>Total Deposits: <span id="total-deposits"></span> ETH</p>
-      <p>Total Withdrawals: <span id="total-withdrawals"></span> ETH</p>
-      <p>Total Rewards: <span id="total-rewards"></span> ETH</p>
-      <p>Contract Balance: <span id="contract-balance"></span> ETH</p>
-      <p>Reward Rate: <span id="reward-rate"></span> ETH per day</p>
-    </div>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MaticPool Interface</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>MaticPool Interface</h1>
+    <h2>Deposit Matic</h2>
+    <form id="deposit-form">
+      <input type="number" id="deposit-amount" placeholder="Amount" min="0" />
+      <button type="submit">Deposit</button>
+    </form>
+    <h2>Withdraw Matic</h2>
+    <form id="withdraw-form">
+      <input type="number" id="withdraw-amount" placeholder="Amount" min="0" />
+      <button type="submit">Withdraw</button>
+    </form>
+    <h2>Claim Dividend</h2>
+    <button id="claim-button">Claim</button>
+    <div id="message"></div>
+    <script src="app.js"></script>
   </body>
 </html>
