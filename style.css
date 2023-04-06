@@ -1,55 +1,109 @@
-body {
+/* Estilos básicos */
+* {
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
-  background-color: #F2F2F2;
+}
+body {
   margin: 0;
   padding: 0;
+  background-color: #f5f5f5;
 }
-
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
 h1 {
-  color: #007bff;
-}
-
-form {
-  margin-bottom: 10px;
-}
-
-label {
+  margin: 0;
+  font-size: 36px;
   font-weight: bold;
+  text-align: center;
+  color: #333;
 }
-
-input[type=text] {
-  border: none;
-  border-bottom: 1px solid #007bff;
-  padding: 5px;
-  margin-right: 5px;
-  margin-bottom: 5px;
+h2 {
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
-
-button {
-  background-color: #007bff;
-  color: #FFF;
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+}
+button[type="submit"] {
+  display: block;
+  margin-top: 10px;
+  padding: 10px;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
   cursor: pointer;
 }
-
-button:hover {
-  background-color: #0056b3;
+button[type="submit"]:hover {
+  background-color: #444;
 }
-
-p {
-  margin: 0;
-  padding: 5px;
-  background-color: #FFF;
-  border-bottom: 1px solid #CCC;
+.balance {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
 }
-
-span {
-  font-weight: bold;
+table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-
-#owner, #treasury-pool, #total-deposits {
-  color: #007bff;
-  font-weight: normal;
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+}
+th {
+  background-color: #333;
+  color: #fff;
+}
+tbody tr:hover {
+  background-color: #f5f5f5;
+}
+#status {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+.success {
+  background-color: #4CAF50;
+}
+.error {
+  background-color: #f44336;
 }
