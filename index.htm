@@ -1,75 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>MaticPool Interface</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT Smart Contract</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>USDT Smart Contract</h1>
     <div class="container">
-      <h1 class="title">MaticPool Interface</h1>
-      <div class="box">
-        <h2 class="subtitle">Connect with MetaMask</h2>
-        <button id="connect-button" class="button">Connect</button>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Deposit Matic</h2>
-        <form id="deposit-form" class="form">
-          <div class="form-control">
-            <label for="deposit-amount">Amount</label>
-            <input type="number" id="deposit-amount" placeholder="Amount" min="0" />
-          </div>
-          <button class="button" type="submit">Deposit</button>
-        </form>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Withdraw Matic</h2>
-        <form id="withdraw-form" class="form">
-          <div class="form-control">
-            <label for="withdraw-amount">Amount</label>
-            <input type="number" id="withdraw-amount" placeholder="Amount" min="0" />
-          </div>
-          <button class="button" type="submit">Withdraw</button>
-        </form>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Claim Dividend</h2>
-        <button id="claim-button" class="button">Claim</button>
-        <div id="message"></div>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Account Balance</h2>
-        <p id="balance"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Last Dividend Claim</h2>
-        <p id="last-dividend-claim"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Total Matic in Pool</h2>
-        <p id="total-matic"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Treasury Pool</h2>
-        <p id="treasury-pool"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Dividend Payout Amount</h2>
-        <p id="payout-amount"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Tax Rate</h2>
-        <p id="tax-rate"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Last Dividend Payout</h2>
-        <p id="last-dividend-payout"></p>
-      </div>
-      <div class="box">
-        <h2 class="subtitle">Total Dividends Paid</h2>
-        <p id="total-dividends"></p>
-      </div>
+        <h2>Depositar USDT</h2>
+        <input type="number" id="depositAmount" placeholder="Cantidad">
+        <button onclick="deposit()">Depositar</button>
     </div>
+    <div class="container">
+        <h2>Retirar USDT</h2>
+        <input type="number" id="withdrawAmount" placeholder="Cantidad">
+        <button onclick="withdraw()">Retirar</button>
+    </div>
+    <div class="container">
+        <h2>Reclamar recompensa</h2>
+        <button onclick="claimReward()">Reclamar</button>
+    </div>
+    <div class="container">
+        <h2>Realizar oferta en subasta</h2>
+        <input type="number" id="bidAmount" placeholder="Cantidad">
+        <button onclick="bid()">Ofertar</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
     <script src="app.js"></script>
-  </body>
+</body>
 </html>
