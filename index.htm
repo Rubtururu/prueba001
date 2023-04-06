@@ -1,82 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My DApp</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.0.0/dist/web3.min.js"></script>
-  <script src="app.js"></script>
-</head>
-
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section>
-      <h1>Welcome to My DApp</h1>
-      <p>Here you can learn about blockchain technology and interact with our smart contract.</p>
-      <button id="connectButton">Connect to Metamask</button>
-    </section>
-
-    <section>
-      <h2>Statistics</h2>
-      <ul>
-        <li>Total Deposits: <span id="totalDeposits"></span></li>
-        <li>User Deposit: <span id="userDeposit"></span></li>
-        <li>Treasury Pool: <span id="treasuryPool"></span></li>
-        <li>Last Distribution: <span id="lastDistribution"></span></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Deposit</h2>
-      <form id="depositForm">
-        <label for="depositAmount">Amount to deposit:</label>
-        <input type="number" id="depositAmount" name="depositAmount" required>
-        <button type="submit" id="depositButton">Deposit</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Withdraw</h2>
-      <form id="withdrawForm">
-        <label for="withdrawAmount">Amount to withdraw:</label>
-        <input type="number" id="withdrawAmount" name="withdrawAmount" required>
-        <button type="submit" id="withdrawButton">Withdraw</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Claim Rewards</h2>
-      <button id="claimButton">Claim Rewards</button>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <div class="social">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-      </div>
+<html>
+  <head>
+    <title>BNBTreasury01 Contract Interaction</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+    <script src="./app.js"></script>
+  </head>
+  <body>
+    <h1>BNBTreasury01 Contract Interaction</h1>
+    <div>
+      <label for="address">Contract Address:</label>
+      <input type="text" id="address" value="0x..." />
     </div>
-  </footer>
-</body>
+    <div>
+      <label for="deposit-amount">Deposit Amount:</label>
+      <input type="text" id="deposit-amount" />
+      <button onclick="deposit()">Deposit</button>
+    </div>
+    <div>
+      <label for="withdraw-amount">Withdraw Amount:</label>
+      <input type="text" id="withdraw-amount" />
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+    <div>
+      <button onclick="claimRewards()">Claim Rewards</button>
+    </div>
+    <div>
+      <label for="total-deposits">Total Deposits:</label>
+      <span id="total-deposits"></span>
+    </div>
+  </body>
+</html>
 
 
     <script>
