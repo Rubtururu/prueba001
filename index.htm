@@ -1,26 +1,35 @@
-<!-- Archivo HTML -->
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Mi contrato inteligente</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Mi contrato inteligente</h1>
-    <form id="deposit-form">
-      <label for="deposit-amount">Cantidad a depositar:</label>
-      <input type="number" id="deposit-amount" name="deposit-amount" required>
-      <button type="submit">Depositar</button>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNB Treasury</title>
+</head>
+<body>
+    <h1>BNB Treasury</h1>
+
+    <h2>Current Treasury Pool: <span id="treasury-pool"></span></h2>
+
+    <form>
+        <label for="deposit-amount">Deposit BNB:</label>
+        <input type="number" id="deposit-amount" name="deposit-amount" required>
+
+        <button type="submit">Deposit</button>
     </form>
-    <form id="withdraw-form">
-      <label for="withdraw-amount">Cantidad a retirar:</label>
-      <input type="number" id="withdraw-amount" name="withdraw-amount" required>
-      <button type="submit">Retirar</button>
+
+    <form>
+        <label for="withdraw-amount">Withdraw BNB:</label>
+        <input type="number" id="withdraw-amount" name="withdraw-amount" required>
+
+        <button type="submit">Withdraw</button>
     </form>
-    <button id="claim-rewards-btn">Reclamar recompensas</button>
-    <button id="total-deposits-btn">Total de depósitos</button>
-    <script src="web3.js"></script>
-    <script src="app.js"></script>
-  </body>
+
+    <button id="claim-rewards-btn">Claim Rewards</button>
+
+    <h3>Your Balance: <span id="user-balance"></span></h3>
+    <h3>Your Pending Rewards: <span id="user-rewards"></span></h3>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.0/dist/web3.min.js"></script>
+    <script src="./app.js"></script>
+</body>
 </html>
