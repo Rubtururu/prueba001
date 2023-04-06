@@ -8,13 +8,12 @@
   <body>
     <div class="container">
       <h1>BNB Treasury Contract Statistics</h1>
+      <button id="connectButton">Connect with Metamask</button>
       <div class="stats">
         <div class="stat">
           <h2>Contract Address:</h2>
           <p>0x1234567890123456789012345678901234567890</p>
         </div>
-<div id="status"></div>
-<button id="connectButton">Connect to Metamask</button>
 
         <div class="stat">
           <h2>Owner:</h2>
@@ -62,5 +61,19 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const connectButton = document.getElementById('connectButton');
+
+      connectButton.addEventListener('click', async () => {
+        if (window.ethereum) {
+          try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      });
+    </script>
   </body>
 </html>
