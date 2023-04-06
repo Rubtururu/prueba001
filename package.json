@@ -1,0 +1,6 @@
+{
+  "name": "my-project",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.1.0"
+  }
+}
