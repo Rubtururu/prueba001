@@ -192,6 +192,34 @@ function claimRewards() {
     console.log("Rewards claimed");
   });
 }
+// Obtener el botón de conectar y el contenedor de estado
+const connectButton = document.getElementById('connectButton');
+const status = document.getElementById('status');
+
+// Función para actualizar el estado
+function setStatus(message, isSuccess) {
+  status.innerText = message;
+  status.className = isSuccess ? 'success' : 'error';
+}
+
+// Función que se ejecuta al hacer clic en el botón de conectar
+async function connect() {
+  try {
+    // Solicitar acceso a la cuenta del usuario
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+    // Actualizar el estado
+    setStatus(`Connected to ${accounts[0]}`, true);
+
+  } catch (error) {
+    // Actualizar el estado en caso de error
+    setStatus(error.message, false);
+  }
+}
+
+// Asignar el evento clic al botón de conectar
+connectButton.addEventListener('click', connect);
+
 
 // Función para obtener el saldo actual del fondo de tesorería
 function getTreasuryPool() {
