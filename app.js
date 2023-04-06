@@ -1,3 +1,4 @@
+// Reemplaza los siguientes valores con los detalles de tu contrato
 const contractABI = [
 	{
 		"inputs": [
@@ -297,6 +298,23 @@ const contractAddress = "0x2ba53e39A92E70c9f2e3ca53446f260A74047045"; // Incluir
 let web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
 let contract = new web3.eth.Contract(contractABI, contractAddress);
 
+async function updateStats() {
+    const accounts = await web3.eth.getAccounts();
+    const userAddress = accounts[0];
+
+    // Balance del usuario
+    const userBalance = await contract.methods.balanceOf(userAddress).call();
+    document.getElementById('userBalance').innerText = `${web3.utils.fromWei(userBalance, 'ether')} USDT`;
+
+    // Pool del Tesoro
+    const treasuryPool = await contract.methods.getTreasuryPool().call();
+    document.getElementById('treasuryPool').innerText = `${web3.utils.fromWei(treasuryPool, 'ether')} USDT`;
+
+    // Pool de Subasta
+    const auctionPool = await contract.methods.getAuctionPool().call();
+    document.getElementById('auctionPool').innerText = `${web3.utils.fromWei(auctionPool, 'ether')} USDT`;
+}
+
 async function deposit() {
     const amount = document.getElementById('depositAmount').value;
     const accounts = await web3.eth.getAccounts();
@@ -307,6 +325,7 @@ async function deposit() {
         })
         .on('receipt', (receipt) => {
             console.log('Transacción completada:', receipt);
+            updateStats();
         })
         .on('error', (error) => {
             console.error('Error al depositar:', error);
@@ -321,4 +340,63 @@ async function withdraw() {
         .on('transactionHash', (hash) => {
             console.log('Transacción enviada:', hash);
         })
-       
+        .on('receipt', (receipt) => {
+            console.log('Transacción completada:', receipt);
+            updateStats();
+        })
+        .on('error', (error) => {
+            console.error('Error al retirar:', error);
+        });
+}
+
+async function claimReward() {
+    const accounts = await web3.eth.getAccounts();
+
+    contract.methods.claimReward().send({ from: accounts[0] })
+        .on('transactionHash', (hash) => {
+            console.log('Transacción enviada:', hash);
+        })
+        .on('receipt', (receipt) => {
+            console.log('Transacción completada:', receipt);
+            updateStats();
+        })
+        .on('error', (error) => {
+            console.error('Error al reclamar recompensa:', error);
+        });
+}
+
+async function bid() {
+    const amount = document.getElementById('bidAmount').value;
+    const accounts = await web3.eth.getAccounts();
+
+    contract.methods.bid(web3.utils.toWei(amount, 'ether')).send({ from: accounts[0] })
+        .on('transactionHash', (hash) => {
+            console.log('Transacción enviada:', hash);
+        })
+        .on('receipt', (receipt) => {
+            console.log('Transacción completada:', receipt);
+            updateStats();
+        })
+        .on('error', (error) => {
+            console.error('Error al realizar oferta en subasta:', error);
+        });
+}
+
+async function connectWallet() {
+    try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        updateStats();
+    } catch (error) {
+        console.error('Error al conectar la cartera:', error);
+    }
+}
+
+if (window.ethereum) {
+    window.ethereum.on('accountsChanged', (accounts) => {
+        updateStats();
+    });
+} else {
+    console.error('No se encontró un proveedor de Ethereum. Por favor, instale MetaMask o use un navegador compatible.');
+}
+
+connectWallet();
