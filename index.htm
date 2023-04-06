@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>BNB Treasury</title>
+    <!-- Cargar la biblioteca Web3.js -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <!-- Cargar el archivo de estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
-    <h1>BNB Treasury</h1>
-    <p>Owner: <span id="owner"></span></p>
-    <p>Treasury Pool: <span id="treasury-pool"></span></p>
-    <p>Total Deposits: <span id="total-deposits"></span></p>
-    <form>
-      <label for="deposit-amount">Deposit amount:</label>
-      <input type="text" id="deposit-amount" name="deposit-amount">
-      <button type="button" onclick="deposit()">Deposit</button>
-    </form>
-    <form>
-      <label for="withdraw-amount">Withdraw amount:</label>
-      <input type="text" id="withdraw-amount" name="withdraw-amount">
-      <button type="button" onclick="withdraw()">Withdraw</button>
-    </form>
-    <button type="button" onclick="claimRewards()">Claim Rewards</button>
-    <script src="web3.min.js"></script>
-    <script src="app.js"></script>
+    <div class="container">
+      <h1>BNB Treasury</h1>
+      <!-- Formulario de depósito -->
+      <form id="deposit-form">
+        <h2>Depósito</h2>
+        <label>Cantidad:</label>
+        <input type="text" id="deposit-amount">
+        <button type="submit">Depositar</button>
+      </form>
+      <!-- Saldo del fondo de tesorería -->
+      <div class="balance">
+        <h3>Saldo del fondo de tesorería:</h3>
+        <p id="treasury-balance"></p>
+      </div>
+      <!-- Tabla de usuarios -->
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Depósito</th>
+            <th>Última reclamación</th>
+          </tr>
+        </thead>
+        <tbody id="user-table-body">
+        </tbody>
+      </table>
+      <!-- Mensajes de estado -->
+      <div id="status"></div>
+    </div>
+    <!-- Cargar el archivo de scripts JS -->
+    <script src="script.js"></script>
   </body>
 </html>
