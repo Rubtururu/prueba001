@@ -6,30 +6,41 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1>BNB Pool</h1>
-        <div id="balance-container">
-            <h2>Your Balance: <span id="balance"></span> BNB</h2>
-            <form id="deposit-form">
-                <label>Deposit BNB:</label>
-                <input type="number" id="deposit-amount" step="0.01" min="0">
-                <button type="submit">Deposit</button>
-            </form>
-            <form id="withdraw-form">
-                <label>Withdraw BNB:</label>
-                <input type="number" id="withdraw-amount" step="0.01" min="0">
-                <button type="submit">Withdraw</button>
-            </form>
-        </div>
-        <div id="pool-container">
-            <h2>Pool Balance: <span id="pool-balance"></span> BNB</h2>
-            <button id="distribute-button">Distribute Pool</button>
-            <div id="pool-distribution-container">
-                <h3>Pool Distribution:</h3>
-                <ul id="pool-distribution-list">
-                    <!-- Pool distribution items will be added here -->
-                </ul>
-            </div>
-        </div>
+        <header>
+            <h1>BNB Pool</h1>
+        </header>
+        <main>
+            <section id="balance-container">
+                <h2>Your Balance: <span id="balance"></span> BNB</h2>
+                <form id="deposit-form">
+                    <label>Deposit BNB:</label>
+                    <div class="input-group">
+                        <input type="number" id="deposit-amount" step="0.01" min="0">
+                        <button type="submit">Deposit</button>
+                    </div>
+                </form>
+                <form id="withdraw-form">
+                    <label>Withdraw BNB:</label>
+                    <div class="input-group">
+                        <input type="number" id="withdraw-amount" step="0.01" min="0">
+                        <button type="submit">Withdraw</button>
+                    </div>
+                </form>
+            </section>
+            <section id="pool-container">
+                <h2>Pool Balance: <span id="pool-balance"></span> BNB</h2>
+                <button id="distribute-button">Distribute Pool</button>
+                <div id="pool-distribution-container">
+                    <h3>Pool Distribution:</h3>
+                    <ul id="pool-distribution-list">
+                        <!-- Pool distribution items will be added here -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2023 BNB Pool. All rights reserved.</p>
+        </footer>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="./web3.min.js"></script>
         <script src="./app.js"></script>
