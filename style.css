@@ -1,101 +1,112 @@
+/* General styles */
+
 body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
     margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
     padding: 0;
-    font-family: Arial, sans-serif;
+    margin: 0;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 50px;
+input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
 }
 
-h2 {
-    margin-top: 20px;
+button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #0069d9;
+    color: #fff;
+    cursor: pointer;
 }
 
-h3 {
-    margin-top: 20px;
+/* Page-specific styles */
+
+header {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    margin-top: 30px;
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+#balance-container {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2rem;
+}
+
+#deposit-form, #withdraw-form {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.input-group {
+    display: flex;
+    margin-right: 1rem;
+}
+
+#pool-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-form label {
-    margin-bottom: 10px;
-}
-
-form input[type="number"] {
-    margin-bottom: 20px;
-    width: 200px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button[type="submit"], button[type="button"] {
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
-button[type="submit"]:hover, button[type="button"]:hover {
-    background-color: #0062cc;
-}
-
-#balance-container, #pool-container {
-    margin-top: 50px;
-    text-align: center;
-}
-
-#balance {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#pool-balance-container {
-    margin-top: 20px;
-}
-
-#pool-balance {
-    font-size: 24px;
-    font-weight: bold;
+#distribute-button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
 }
 
 #pool-distribution-container {
-    margin-top: 20px;
+    margin-top: 2rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
 }
 
-#pool-distribution-list {
-    list-style: none;
-    padding: 0;
-}
-
-#pool-distribution-list li {
-    margin-bottom: 10px;
+#pool-distribution-container h3 {
+    margin-top: 0;
 }
 
 .pool-share {
     font-weight: bold;
+    color: #0069d9;
+    margin-right: 0.25rem;
 }
 
-#distribute-button {
-    margin-top: 30px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #28a745;
-    color: #fff;
-    cursor: pointer;
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-top: 2rem;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#distribute-button:hover {
-    background-color: #218838;
+footer p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #555;
 }
