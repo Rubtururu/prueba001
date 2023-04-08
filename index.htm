@@ -1,143 +1,48 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Juego Idle</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Juego Idle</h1>
-        <p>Bienvenido al juego idle. Actualiza tus puntos y gana premios.</p>
-      </header>
-      <main>
-        <section>
-          <h2>Tus puntos</h2>
-          <div class="user-info">
-            <p id="user-points"></p>
-            <button id="update-btn" disabled>Actualizar puntos</button>
-          </div>
-        </section>
-        <section>
-          <h2>Pagar para jugar</h2>
-          <div class="pay-section">
-            <p>Para jugar, debes pagar 0.1 BNB al mes.</p>
-            <p>El pago va al pozo de premios, del cual se reparten premios mensuales.</p>
-            <button id="pay-btn">Pagar</button>
-          </div>
-        </section>
-        <section>
-          <h2>Pozo de premios</h2>
-          <div class="prize-pool">
-            <p id="prize-pool-amount"></p>
-            <button id="withdraw-btn" disabled>Retirar premios</button>
-          </div>
-        </section>
-        <section>
-          <h2>Ranking</h2>
-          <div class="ranking-section">
-            <button id="ranking-btn">Ver ranking</button>
-            <ol id="ranking-list"></ol>
-          </div>
-        </section>
-      </main>
-      <footer>
-        <p>&copy; 2023 Juego Idle. Todos los derechos reservados.</p>
-      </footer>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BSC Smart Contract Demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>BSC Smart Contract Demo</h1>
+    <div id="balance-container">
+        <h2>Your Balance:</h2>
+        <span id="balance"></span> BNB
     </div>
-    <script src="./app.js"></script>
-  </body>
+    <div id="pool-container">
+        <h2>Pool Information:</h2>
+        <div id="pool-balance-container">
+            <h3>Pool Balance:</h3>
+            <span id="pool-balance"></span> BNB
+        </div>
+        <div id="pool-distribution-container">
+            <h3>Pool Distribution:</h3>
+            <ul id="pool-distribution-list">
+                <li>Address 1: <span class="pool-share"></span>%</li>
+                <li>Address 2: <span class="pool-share"></span>%</li>
+                <li>Address 3: <span class="pool-share"></span>%</li>
+                <!-- Add more list items for additional addresses -->
+            </ul>
+        </div>
+    </div>
+    <form id="deposit-form">
+        <h2>Deposit BNB:</h2>
+        <label for="deposit-amount">Amount:</label>
+        <input type="number" id="deposit-amount" name="deposit-amount" min="0" step="0.01" required>
+        <button type="submit">Deposit</button>
+    </form>
+    <form id="withdraw-form">
+        <h2>Withdraw BNB:</h2>
+        <label for="withdraw-amount">Amount:</label>
+        <input type="number" id="withdraw-amount" name="withdraw-amount" min="0" step="0.01" required>
+        <button type="submit">Withdraw</button>
+    </form>
+    <button id="distribute-button" type="button">Distribute Pool</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
 </html>
-<!-- Modal de carga -->
-<div class="modal" id="loading-modal">
-  <div class="modal-content">
-    <div class="spinner"></div>
-    <p>Cargando...</p>
-  </div>
-</div>
-
-<!-- Modal de error -->
-<div class="modal" id="error-modal">
-  <div class="modal-content">
-    <p>Ha ocurrido un error. Por favor, inténtalo de nuevo.</p>
-    <button id="error-modal-btn">Aceptar</button>
-  </div>
-</div>
-<!-- Modal de pago -->
-<div class="modal" id="pay-modal">
-  <div class="modal-content">
-    <p>Para jugar debes pagar 0.1 BNB al mes.</p>
-    <button id="pay-modal-confirm-btn">Confirmar pago</button>
-    <button id="pay-modal-cancel-btn">Cancelar</button>
-  </div>
-</div>
-<!-- Modal de confirmación de pago -->
-<div class="modal" id="pay-confirmation-modal">
-  <div class="modal-content">
-    <p>Pago realizado correctamente. ¡Ya puedes jugar!</p>
-    <button id="pay-confirmation-modal-btn">Aceptar</button>
-  </div>
-</div>
-
-<!-- Modal de premios -->
-<div class="modal" id="prize-modal">
-  <div class="modal-content">
-    <p>Has ganado <span id="prize-amount"></span> BNB.</p>
-    <button id="prize-modal-btn">Aceptar</button>
-  </div>
-</div>
-<!-- Modal de ranking -->
-<div class="modal" id="ranking-modal">
-  <div class="modal-content">
-    <h3>Ranking</h3>
-    <ol id="ranking-modal-list"></ol>
-    <button id="ranking-modal-btn">Aceptar</button>
-  </div>
-</div>
-<!-- Modal de actualización de puntos -->
-<div class="modal" id="update-modal">
-  <div class="modal-content">
-    <p>¿Cuántos puntos quieres actualizar?</p>
-    <input type="number" id="update-input" min="0" required />
-    <button id="update-modal-confirm-btn">Actualizar</button>
-    <button id="update-modal-cancel-btn">Cancelar</button>
-  </div>
-</div>
-<!-- Modal de confirmación de actualización de puntos -->
-<div class="modal" id="update-confirmation-modal">
-  <div class="modal-content">
-    <p>Puntos actualizados correctamente.</p>
-    <button id="update-confirmation-modal-btn">Aceptar</button>
-  </div>
-</div>
-<!-- Modal de confirmación de retiro de premios -->
-<div class="modal" id="withdraw-confirmation-modal">
-  <div class="modal-content">
-    <p>Premios retirados correctamente.</p>
-    <button id="withdraw-confirmation-modal-btn">Aceptar</button>
-  </div>
-</div>
-<!-- Modals de error -->
-<div class="modal" id="missing-wallet-modal">
-  <div class="modal-content">
-    <p>No se ha detectado ninguna cartera. Por favor, instala una y vuelve a intentarlo.</p>
-    <button id="missing-wallet-modal-btn">Aceptar</button>
-  </div>
-</div>
-
-<div class="modal" id="insufficient-balance-modal">
-  <div class="modal-content">
-    <p>No tienes suficiente saldo para realizar esta acción.</p>
-    <button id="insufficient-balance-modal-btn">Aceptar</button>
-  </div>
-</div>
-<div class="modal" id="connection-error-modal">
-  <div class="modal-content">
-    <p>No se ha podido establecer conexión con la red de Binance Smart Chain. Por favor, inténtalo de nuevo más tarde.</p>
-    <button id="connection-error-modal-btn">Aceptar</button>
-  </div>
-</div>
-
