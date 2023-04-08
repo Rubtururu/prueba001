@@ -1,183 +1,102 @@
-// Importar la biblioteca Web3.js
-import Web3 from 'web3';
+const CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Replace with actual contract address
+const ABI = [/* Insert contract ABI here */]; // Replace with actual contract ABI
 
-// Crear una instancia de Web3 para conectarse a la red Ethereum o Binance Smart Chain
-const web3 = new Web3('https://bsc-dataseed.binance.org');
+let web3;
+let poolContract;
 
-// Definir la dirección del contrato inteligente BNBTreasury01 y su ABI (Application Binary Interface)
-const contractAddress = '0xB8df7EEc5F3B4136D5BE3024d445A7493c274B26';
-const abi = [
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [],
-        "name": "claimRewards",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "deposit",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "lastDistribution",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "treasuryPool",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "users",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "deposit",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "lastClaim",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "totalDeposits",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-        }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-}
-];
+window.addEventListener('load', async () => {
+    // Load Web3.js
+    if (typeof window.ethereum !== 'undefined') {
+        web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+    } else if (typeof window.web3 !== 'undefined') {
+        web3 = new Web3(window.web3.currentProvider);
+    } else {
+        console.log('No Web3 detected!');
+        return;
+    }
 
-// Crear una instancia del contrato inteligente BNBTreasury01 utilizando su dirección y ABI
-const contract = new web3.eth.Contract(abi, contractAddress);
+    // Load contract
+    poolContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 
-// Obtener la dirección del usuario actual de la red Ethereum o Binance Smart Chain
-const userAddress = '0x123456789...';
+    // Load balance
+    updateBalance();
 
-// Obtener la información del contrato inteligente y actualizar la interfaz de usuario con los datos correspondientes
-async function updateUI() {
-const treasuryPool = await contract.methods.treasuryPool().call();
-const userBalance = await contract.methods.users(userAddress).deposit().call();
-const userRewards = await calculateRewards();
-document.getElementById('treasury-pool').textContent = treasuryPool;
-document.getElementById('user-balance').textContent = userBalance;
-document.getElementById('user-rewards').textContent = userRewards;
+    // Load pool balance
+    updatePoolBalance();
+
+    // Load pool distribution
+    updatePoolDistribution();
+
+    // Handle deposit form submission
+    document.getElementById('deposit-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const amount = document.getElementById('deposit-amount').value;
+        deposit(amount);
+    });
+
+    // Handle withdraw form submission
+    document.getElementById('withdraw-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const amount = document.getElementById('withdraw-amount').value;
+        withdraw(amount);
+    });
+
+    // Handle distribute button click
+    document.getElementById('distribute-button').addEventListener('click', () => {
+        distribute();
+    });
+});
+
+async function updateBalance() {
+    const accounts = await web3.eth.getAccounts();
+    const balance = await web3.eth.getBalance(accounts[0]);
+    document.getElementById('balance').textContent = web3.utils.fromWei(balance);
 }
 
-// Calcular las recompensas pendientes del usuario actual
-async function calculateRewards() {
-const user = await contract.methods.users(userAddress).call();
-const totalDeposits = await contract.methods.totalDeposits().call();
-const timeSinceLastClaim = (Date.now() / 1000) - user.lastClaim;
-const numIntervals = Math.floor(timeSinceLastClaim / (24 * 60 * 60));
-
-const pendingRewards = (treasuryPool * 1) / 100 * user.deposit / totalDeposits * numIntervals;
-
-return pendingRewards;
+async function updatePoolBalance() {
+    const poolBalance = await poolContract.methods.getPoolBalance().call();
+    document.getElementById('pool-balance').textContent = web3.utils.fromWei(poolBalance);
 }
 
-// Manejar el evento de depósito del formulario
-document.getElementById('deposit-form').addEventListener('submit', async (event) => {
-event.preventDefault();
-const depositAmount = event.target.elements['deposit-amount'].value;
-const tx = await contract.methods.deposit().send({
-    from: userAddress,
-    value: depositAmount
-});
+async function updatePoolDistribution() {
+    const distributionList = document.getElementById('pool-distribution-list');
+    const distribution = await poolContract.methods.getPoolDistribution().call();
+    distributionList.innerHTML = '';
+    for (let i = 0; i < distribution.length; i++) {
+        const [address, share] = distribution[i];
+        const listItem = document.createElement('li');
+        listItem.textContent = `${address}: `;
+        const shareSpan = document.createElement('span');
+        shareSpan.classList.add('pool-share');
+        shareSpan.textContent = share;
+        listItem.appendChild(shareSpan);
+        listItem.textContent += '%';
+        distributionList.appendChild(listItem);
+    }
+}
 
-console.log('Depósito exitoso:', tx);
-await updateUI();
-});
+async function deposit(amount) {
+    const accounts = await web3.eth.getAccounts();
+    const value = web3.utils.toWei(amount);
+    await poolContract.methods.deposit().send({ from: accounts[0], value: value });
+    updateBalance();
+    updatePoolBalance();
+    updatePoolDistribution();
+}
 
-// Manejar el evento de retiro del formulario
-document.getElementById('withdraw-form').addEventListener('submit', async (event) => {
-event.preventDefault();
-const withdrawAmount = event.target.elements['withdraw-amount'].value;
-const tx = await contract.methods.withdraw(withdrawAmount).send({
-    from: userAddress
-});
+async function withdraw(amount) {
+    const accounts = await web3.eth.getAccounts();
+    const value = web3.utils.toWei(amount);
+    await poolContract.methods.withdraw(value).send({ from: accounts[0] });
+    updateBalance();
+    updatePoolBalance();
+    updatePoolDistribution();
+}
 
-console.log('Retiro exitoso:', tx);
-await updateUI();
-});
-
-// Manejar el evento de reclamo de recompensas
-document.getElementById('claim-rewards-btn').addEventListener('click', async () => {
-const tx = await contract.methods.claimRewards().send({
-from: userAddress
-});
-console.log('Recompensas reclamadas exitosamente:', tx);
-await updateUI();
-});
-
-// Actualizar la interfaz de usuario inicialmente
-await updateUI();
+async function distribute() {
+    const accounts = await web3.eth.getAccounts();
+    await poolContract.methods.distribute().send({ from: accounts[0] });
+    updatePoolBalance();
+    updatePoolDistribution();
+}
